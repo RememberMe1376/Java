@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.util.*;
 
 public class ClockApp extends JPanel implements Runnable {
     private int hour, minute, second;
@@ -15,7 +14,6 @@ public class ClockApp extends JPanel implements Runnable {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        // Vẽ mặt đồng hồ với các số 3, 6, 9, 12
         int centerX = getWidth() / 2;
         int centerY = getHeight() / 3;
         int radius = Math.min(centerX, centerY) - 20;
@@ -27,34 +25,29 @@ public class ClockApp extends JPanel implements Runnable {
         g.drawString("9", centerX - radius + 10, centerY + 5);
         g.drawString("12", centerX - 10, centerY - radius + 20);
 
-        // Lấy thời gian hiện tại
         Calendar calendar = new GregorianCalendar();
         hour = calendar.get(Calendar.HOUR_OF_DAY);
         minute = calendar.get(Calendar.MINUTE);
         second = calendar.get(Calendar.SECOND);
 
-        // Vẽ kim giây
         double secondAngle = Math.toRadians(second * 6 - 90);
         int secondX = (int) (centerX + radius * 0.9 * Math.cos(secondAngle));
         int secondY = (int) (centerY + radius * 0.9 * Math.sin(secondAngle));
         g.setColor(Color.RED);
         g.drawLine(centerX, centerY, secondX, secondY);
 
-        // Vẽ kim phút
         double minuteAngle = Math.toRadians(minute * 6 - 90);
         int minuteX = (int) (centerX + radius * 0.75 * Math.cos(minuteAngle));
         int minuteY = (int) (centerY + radius * 0.75 * Math.sin(minuteAngle));
         g.setColor(Color.BLUE);
         g.drawLine(centerX, centerY, minuteX, minuteY);
 
-        // Vẽ kim giờ
         double hourAngle = Math.toRadians((hour % 12 + minute / 60.0) * 30 - 90);
         int hourX = (int) (centerX + radius * 0.5 * Math.cos(hourAngle));
         int hourY = (int) (centerY + radius * 0.5 * Math.sin(hourAngle));
         g.setColor(Color.BLACK);
         g.drawLine(centerX, centerY, hourX, hourY);
 
-        // Hiển thị thời gian định dạng 24h bên dưới
         g.setColor(Color.BLACK);
         g.setFont(new Font("Arial", Font.BOLD, 18));
         String timeString = String.format("%02d:%02d:%02d", hour, minute, second);
@@ -66,7 +59,7 @@ public class ClockApp extends JPanel implements Runnable {
         while (true) {
             repaint();
             try {
-                Thread.sleep(1000); // Cập nhật mỗi giây
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

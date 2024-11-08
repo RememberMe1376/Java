@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
 public class ColorListApp extends JFrame {
     private JPanel colorPanel;
@@ -11,24 +10,20 @@ public class ColorListApp extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        // Tạo danh sách các màu
         String[] colors = { "Red", "Green", "Blue", "Yellow", "Cyan", "Magenta" };
         JList<String> colorList = new JList<>(colors);
         colorList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-        // Panel hiển thị màu nền
         colorPanel = new JPanel();
         colorPanel.setBackground(Color.WHITE);
 
-        // Thêm hành động khi chọn màu
         colorList.addListSelectionListener(e -> {
-            if (!e.getValueIsAdjusting()) { // Đảm bảo rằng chỉ xử lý khi lựa chọn hoàn tất
+            if (!e.getValueIsAdjusting()) {
                 String selectedColor = colorList.getSelectedValue();
                 changeBackgroundColor(selectedColor);
             }
         });
 
-        // Layout và thêm các thành phần vào frame
         setLayout(new BorderLayout());
         add(new JScrollPane(colorList), BorderLayout.WEST);
         add(colorPanel, BorderLayout.CENTER);

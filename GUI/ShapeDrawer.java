@@ -13,7 +13,6 @@ public class ShapeDrawer extends JFrame {
     private JButton colorButton;
     private Color chosenColor = Color.BLACK;
 
-    // Thêm các JTextField để nhập tham số
     private JTextField xField, yField, widthField, heightField, radiusField;
 
     public ShapeDrawer() {
@@ -22,20 +21,16 @@ public class ShapeDrawer extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        // Panel điều khiển
         controlPanel = new JPanel();
         controlPanel.setLayout(new FlowLayout());
 
-        // ComboBox chọn loại hình
         shapeComboBox = new JComboBox<>(new String[] { "Square", "Rectangle", "Circle", "Polygon" });
         controlPanel.add(new JLabel("Shape:"));
         controlPanel.add(shapeComboBox);
 
-        // Checkbox chọn kiểu rỗng/đặc
         filledCheckBox = new JCheckBox("Filled");
         controlPanel.add(filledCheckBox);
 
-        // Nút chọn màu
         colorButton = new JButton("Choose Color");
         colorButton.addActionListener(e -> {
             Color selectedColor = JColorChooser.showDialog(null, "Choose a color", chosenColor);
@@ -46,12 +41,11 @@ public class ShapeDrawer extends JFrame {
         });
         controlPanel.add(colorButton);
 
-        // Các trường nhập liệu cho toạ độ và kích thước
         xField = new JTextField("100", 5);
         yField = new JTextField("100", 5);
         widthField = new JTextField("100", 5);
         heightField = new JTextField("100", 5);
-        radiusField = new JTextField("50", 5); // Chỉ sử dụng cho hình tròn
+        radiusField = new JTextField("50", 5);
 
         controlPanel.add(new JLabel("X:"));
         controlPanel.add(xField);
@@ -66,11 +60,9 @@ public class ShapeDrawer extends JFrame {
 
         add(controlPanel, BorderLayout.NORTH);
 
-        // Panel vẽ
         drawingPanel = new DrawingPanel();
         add(drawingPanel, BorderLayout.CENTER);
 
-        // Nút vẽ hình
         JButton drawButton = new JButton("Draw Shape");
         drawButton.addActionListener(new DrawButtonListener());
         controlPanel.add(drawButton);
@@ -78,7 +70,6 @@ public class ShapeDrawer extends JFrame {
         setVisible(true);
     }
 
-    // Lớp để vẽ các hình
     private class DrawingPanel extends JPanel {
         private Shape shape;
 
@@ -102,14 +93,12 @@ public class ShapeDrawer extends JFrame {
         }
     }
 
-    // ActionListener cho nút "Draw Shape"
     private class DrawButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             String selectedShape = (String) shapeComboBox.getSelectedItem();
             Shape shape = null;
 
-            // Đọc các tham số từ JTextField
             int x = Integer.parseInt(xField.getText());
             int y = Integer.parseInt(yField.getText());
             int width = Integer.parseInt(widthField.getText());

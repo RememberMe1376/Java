@@ -9,19 +9,16 @@ public class SimpleCalculator extends JFrame implements ActionListener {
     private String expression = "";
 
     public SimpleCalculator() {
-        // Display setup
         display = new JTextField();
         display.setEditable(false);
         display.setFont(new Font("Arial", Font.BOLD, 24));
         display.setHorizontalAlignment(SwingConstants.RIGHT);
         display.setPreferredSize(new Dimension(360, 50));
 
-        // Add border to display
-        display.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2)); // Black border with thickness 2
+        display.setBorder(BorderFactory.createLineBorder(Color.BLACK, 4));
 
         JPanel panel = new JPanel(new GridLayout(5, 4, 5, 5));
 
-        // Calculator buttons
         String[] buttons = {
                 "7", "8", "9", "/",
                 "4", "5", "6", "*",
@@ -38,7 +35,6 @@ public class SimpleCalculator extends JFrame implements ActionListener {
             panel.add(button);
         }
 
-        // Frame setup
         setLayout(new BorderLayout());
         add(display, BorderLayout.NORTH);
         add(panel, BorderLayout.CENTER);
@@ -75,23 +71,18 @@ public class SimpleCalculator extends JFrame implements ActionListener {
 
     private void evaluateExpression() {
         try {
-            // Check if the expression is already a result, then append the current
-            // operation
             if (expression.isEmpty()) {
                 return;
             }
 
             if (expression.charAt(expression.length() - 1) == '=') {
-                // If the last character is '=', remove it before appending new numbers or
-                // operators
                 expression = expression.substring(0, expression.length() - 1);
             }
 
             double result = evaluate(expression);
             display.setText(formatResult(result));
 
-            // Allow result to be used for the next calculation
-            expression = formatResult(result); // Set the expression to the result for continued operations
+            expression = formatResult(result);
         } catch (Exception e) {
             display.setText("Error");
         }
@@ -110,7 +101,7 @@ public class SimpleCalculator extends JFrame implements ActionListener {
             if (num >= 0) {
                 double result = Math.sqrt(num);
                 display.setText(formatResult(result));
-                expression = formatResult(result); // Set expression to the result for continued operations
+                expression = formatResult(result);
             } else {
                 display.setText("Invalid input");
             }
@@ -119,7 +110,7 @@ public class SimpleCalculator extends JFrame implements ActionListener {
 
     private void addDecimalPoint() {
         if (expression.isEmpty() || isOperator(expression.charAt(expression.length() - 1))) {
-            expression += "0."; // Start with 0 if expression or last char is an operator
+            expression += "0.";
         } else if (!expression.contains(".")) {
             expression += ".";
         }

@@ -19,7 +19,6 @@ public class ImageDisplayApp extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        // Khởi tạo nút "Open" để chọn ảnh
         JButton openButton = new JButton("Open Images");
         openButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -27,7 +26,6 @@ public class ImageDisplayApp extends JFrame {
             }
         });
 
-        // Tạo nút và trường nhập liệu thay đổi kích thước
         JPanel sizePanel = new JPanel();
         widthField = new JTextField(5);
         heightField = new JTextField(5);
@@ -44,11 +42,9 @@ public class ImageDisplayApp extends JFrame {
             }
         });
 
-        // Tạo JPanel để chứa các ảnh
         imagePanel = new JPanel();
         imagePanel.setLayout(new FlowLayout());
 
-        // Tạo JPanel chứa nút và khu vực hiển thị ảnh
         JPanel controlPanel = new JPanel();
         controlPanel.setLayout(new BorderLayout());
         controlPanel.add(openButton, BorderLayout.NORTH);
@@ -61,7 +57,6 @@ public class ImageDisplayApp extends JFrame {
     }
 
     private void openImages() {
-        // Chọn nhiều file ảnh
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setMultiSelectionEnabled(true);
         fileChooser
@@ -94,7 +89,6 @@ public class ImageDisplayApp extends JFrame {
     }
 
     private void changeWindowSize() {
-        // Lấy kích thước từ trường nhập liệu
         try {
             int width = Integer.parseInt(widthField.getText());
             int height = Integer.parseInt(heightField.getText());
