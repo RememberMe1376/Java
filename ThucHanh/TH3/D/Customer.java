@@ -51,8 +51,8 @@ public class Customer {
     public String ngay() {
         String day = "" + this.expriredDate.charAt(0) + this.expriredDate.charAt(1);
         String month = "" + this.expriredDate.charAt(3) + this.expriredDate.charAt(4);
-        String year = this.expriredDate.charAt(6) + this.expriredDate.charAt(7) + this.expriredDate.charAt(8)
-                + this.expriredDate.charat(9);
+        String year = "" + this.expriredDate.charAt(6) + this.expriredDate.charAt(7) + this.expriredDate.charAt(8)
+                + this.expriredDate.charAt(9);
         return year + month + day;
     }
 
