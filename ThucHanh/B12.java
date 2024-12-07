@@ -1,82 +1,103 @@
 package ThucHanh;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.*;
 
 class TheLoai {
     private static int ID = 0;
-    String ma, name;
+    private String id, name;
 
-    public TheLoai() {
-        this.ma = String.format("TL%03d", ID++);
+    public String getId() {
+        return id;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public TheLoai(String name) {
+        this.id = String.format("TL%03d", ++ID);
+        this.name = name;
+    }
+
 }
 
 class Phim implements Comparable<Phim> {
-    int eps;
-    String ma, name, date, kind;
-    static int ID = 0;
+    private String id, name, date, genre;
+    private int eps;
+    private static int ID = 1;
 
-    public Phim() {
-        this.ma = String.format("P%03d", ID++);
+    public Phim(String name, String date, String genre, int eps) {
+        this.id = String.format("P%03d", ID++);
+        this.name = name;
+        this.date = date;
+        this.genre = genre;
+        this.eps = eps;
     }
 
-    public String toString() {
-        return ma + " " + kind + " " + date + " Phim so " + ma.substring(3) + " " + eps + "\n";
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 
     @Override
-    public int compareTo(Phim other) {
+    public String toString() {
+        return id + " " + genre + " " + date + " Phim so " + id.substring(3) + " " + eps;
+    }
+
+    @Override
+    public int compareTo(Phim o) {
         int[] check = { 6, 7, 8, 9, 3, 4, 1, 2 };
         for (int i = 0; i < 8; i++) {
-            if (this.date.charAt(check[i]) < other.date.charAt(check[i]))
+            if (date.charAt(check[i]) < o.date.charAt(check[i])) {
                 return -1;
-            if (this.date.charAt(check[i]) > other.date.charAt(check[i]))
+            }
+            if (date.charAt(check[i]) > o.date.charAt(check[i])) {
                 return 1;
+            }
         }
-        if (this.name.compareTo(other.name) < 0)
+        if (name.compareTo(o.name) < 0) {
             return -1;
-        if (this.name.compareTo(other.name) > 0)
+        }
+        if (name.compareTo(o.name) > 0) {
             return 1;
-        return Integer.compare(other.eps, this.eps);
+        }
+        return Integer.compare(o.eps, eps);
     }
 }
 
 public class B12 {
-
-    public static void main(String[] args) throws IOException {
-        BufferedReader sc = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer tok;
-        tok = new StringTokenizer(sc.readLine());
-        int n = Integer.parseInt(tok.nextToken());
-        int m = Integer.parseInt(tok.nextToken());
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int m = sc.nextInt();
+        sc.nextLine();
         TheLoai[] tl = new TheLoai[n];
         Phim[] p = new Phim[m];
         for (int i = 0; i < n; i++) {
-            tl[i] = new TheLoai();
-            tl[i].name = sc.readLine();
+            String name = sc.nextLine();
+            tl[i] = new TheLoai(name);
         }
         for (int i = 0; i < m; i++) {
-            p[i] = new Phim();
-            p[i].kind = sc.readLine();
-            p[i].date = sc.readLine();
-            p[i].name = sc.readLine();
-            p[i].eps = Integer.parseInt(sc.readLine());
+            String genre = sc.nextLine();
+            String date = sc.nextLine();
+            String name = sc.nextLine();
+            int eps = Integer.parseInt(sc.nextLine());
+            p[i] = new Phim(name, date, genre, eps);
         }
-        Map<String, String> kindMap = new HashMap<>();
+
+        Map<String, String> genreMap = new HashMap<>();
         for (TheLoai i : tl) {
-            kindMap.put(i.ma, i.name);
+            genreMap.put(i.getId(), i.getName());
         }
         for (Phim i : p) {
-            i.kind = kindMap.get(i.kind);
+            i.setGenre(genreMap.get(i.getGenre()));
         }
         Arrays.sort(p);
         for (Phim i : p) {
-            {
-                System.out.println(i);
-            }
+            System.out.println(i);
         }
     }
 }
